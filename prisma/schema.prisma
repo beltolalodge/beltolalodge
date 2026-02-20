@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id              String      @id @default(uuid())
+  name            String
+  description     String
+  price           Decimal     @db.Decimal(10, 2)
+  max_guests      Int
+  amenities       Json        @default("[]")
+  min_stay        Int         @default(1)
+  same_day_cutoff Int?        // Hour (0-23) for same-day booking cutoff
+  is_active       Boolean     @default(true)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+  images          RoomImage[]
+  bookings        Booking[]
+  blocked_dates   BlockedDate[] // Added this relation
+}
+
+model RoomImage {
+  id            String   @id @default(uuid())
+  room_id       String
+  image_url     String
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  room          Room     @relation(fields: [room_id], references: [id], onDelete: Cascade)
+
+  @@index([room_id])
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+  expired
+  rejected
+}
+
+model Booking {
+  id              String        @id @default(uuid())
+  room_id         String
+  name            String
+  email           String?
+  phone           String
+  check_in        DateTime
+  check_out       DateTime
+  guests          Int
+  special_request String?
+  admin_notes     String?
+  status          BookingStatus @default(confirmed)
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  room            Room          @relation(fields: [room_id], references: [id])
+
+  @@index([room_id])
+  @@index([check_in, check_out])
+  @@index([status])
+}
+
+model BlockedDate {
+  id        String   @id @default(uuid())
+  room_id   String
+  date      DateTime @db.Date
+  reason    String?
+  created_at DateTime @default(now())
+  room      Room     @relation(fields: [room_id], references: [id], onDelete: Cascade) // Relation now matches
+
+  @@unique([room_id, date])
+  @@index([room_id])
+}
+
+enum AdminRole {
+  super_admin
+  staff
+}
+
+model AdminUser {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  password_hash  String
+  role           AdminRole @default(staff)
+  failed_attempts Int      @default(0)
+  lock_until     DateTime?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  audit_logs     AuditLog[]
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  admin_id    String
+  action      String
+  entity_type String
+  entity_id   String?
+  details     Json?
+  timestamp   DateTime  @default(now())
+  admin       AdminUser @relation(fields: [admin_id], references: [id])
+
+  @@index([admin_id])
+  @@index([timestamp])
+}
