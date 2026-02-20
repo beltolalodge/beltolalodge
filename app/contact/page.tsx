@@ -61,7 +61,7 @@ export default function ContactPage() {
                         </div>
                         <div>
                             <h3 className="text-lg uppercase tracking-widest text-[#C8A45D] font-bold mb-2">Phone</h3>
-                            <p className="text-gray-600 text-xl">+91 91013 11322</p>
+                            <p className="text-gray-600 text-xl">+91 76359 45117</p>
                             <p className="text-gray-400 text-sm mt-1">Available 24/7</p>
                         </div>
                         <div>

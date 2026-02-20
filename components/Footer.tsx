@@ -33,7 +33,7 @@ export default function Footer() {
                 <div className="space-y-4">
                     <h4 className="text-[#C8A45D] font-bold uppercase tracking-wider text-sm">Contact</h4>
                     <p className="text-gray-400">7, Rupkonwar Path, Jhanakpur,<br />Beltola Tiniali, Guwahati 781028</p>
-                    <p className="text-gray-400">+91 91013 11322</p>
+                    <p className="text-gray-400">+91 76359 45117</p>
                     <p className="text-gray-400">beltolalodge@gmail.com</p>
                 </div>
             </div>

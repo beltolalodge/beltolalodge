@@ -26,8 +26,13 @@ export default function Navbar() {
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${navClass}`}>
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                <Link href="/" className="text-2xl font-cinzel font-bold tracking-widest text-[#C8A45D]">
-                    BELTOLA LODGE
+                <Link href="/" className="flex flex-col">
+                    <span className="text-2xl font-cinzel font-bold tracking-widest text-[#C8A45D] leading-none">
+                        BELTOLA LODGE
+                    </span>
+                    <span className="text-[0.65rem] font-serif tracking-[0.3em] text-white/80 uppercase mt-1 pl-1">
+                        A Serene Homestay
+                    </span>
                 </Link>
 
                 {/* Desktop Menu */}

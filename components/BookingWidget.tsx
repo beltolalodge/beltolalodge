@@ -108,7 +108,7 @@ export default function BookingWidget({ room }: BookingWidgetProps) {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="w-full bg-gray-50 border border-gray-200 rounded p-3 text-sm"
-                        placeholder="+91 91013 11322"
+                        placeholder="+91 76359 45117"
                     />
                 </div>
 

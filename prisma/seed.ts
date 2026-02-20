@@ -5,25 +5,21 @@ const prisma = new PrismaClient();
 
 async function main() {
     const email = 'admin@beltolalodge.com';
-    const password = 'ChangeMe123!'; // Default password
+    const password = 'MeeCHAN@2006';
 
-    const existingAdmin = await prisma.adminUser.findUnique({
+    const passwordHash = await bcrypt.hash(password, 12);
+    await prisma.adminUser.upsert({
         where: { email },
+        update: {
+            password_hash: passwordHash,
+        },
+        create: {
+            email,
+            password_hash: passwordHash,
+            role: 'super_admin',
+        },
     });
-
-    if (!existingAdmin) {
-        const passwordHash = await bcrypt.hash(password, 12);
-        await prisma.adminUser.create({
-            data: {
-                email,
-                password_hash: passwordHash,
-                role: 'super_admin',
-            },
-        });
-        console.log(`Created super_admin: ${email}`);
-    } else {
-        console.log('Admin already exists.');
-    }
+    console.log(`Upserted super_admin: ${email}`);
 
     // Create example rooms if none exist
     const roomCount = await prisma.room.count();
