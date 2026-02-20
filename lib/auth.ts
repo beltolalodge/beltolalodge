@@ -27,7 +27,7 @@ export function verifyToken(token: string): AdminSession | null {
         const decoded = jwt.verify(token, SECRET);
         if (typeof decoded === 'string') return null;
         return decoded as AdminSession;
-    } catch (e) {
+    } catch {
         return null;
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';

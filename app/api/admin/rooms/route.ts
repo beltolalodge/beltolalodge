@@ -15,7 +15,7 @@ const roomSchema = z.object({
     images: z.array(z.string().url()).optional(), // Array of image URLs
 });
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const session = await getSession();
     if (!session || !['super_admin', 'staff'].includes(session.role)) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
             include: { images: { orderBy: { display_order: 'asc' } } },
         });
         return NextResponse.json(rooms);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
     }
 }
@@ -72,12 +72,12 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json(room);
-    } catch (error: any) {
+    } catch (error) {
         console.error('Create room error:', error);
         return NextResponse.json({
             error: 'Internal Error',
-            details: error?.message || 'Unknown database error',
-            name: error?.name
+            details: error instanceof Error ? error.message : 'Unknown database error',
+            name: error instanceof Error ? error.name : 'Unknown'
         }, { status: 500 });
     }
 }

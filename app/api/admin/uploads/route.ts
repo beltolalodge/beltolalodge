@@ -29,8 +29,8 @@ export async function POST(req: NextRequest) {
         const url = await uploadImage(buffer, filename, type.mime);
 
         return NextResponse.json({ url });
-    } catch (error: any) {
+    } catch (error) {
         console.error('Upload Error:', error);
-        return NextResponse.json({ error: error.message || 'Upload failed' }, { status: 500 });
+        return NextResponse.json({ error: error instanceof Error ? error.message : 'Upload failed' }, { status: 500 });
     }
 }

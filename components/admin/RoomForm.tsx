@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 
-interface Room {
+export interface Room {
     id?: string;
     name: string;
     description: string;
@@ -64,8 +64,8 @@ export default function RoomForm({ initialData, onSuccess, onCancel }: Props) {
                 throw new Error(errorData?.error || 'Failed to save room');
             }
             onSuccess();
-        } catch (error: any) {
-            alert(`Error saving room: ${error.message}`);
+        } catch (error) {
+            alert(`Error saving room: ${error instanceof Error ? error.message : 'Unknown error'}`);
         } finally {
             setLoading(false);
         }
@@ -97,7 +97,7 @@ export default function RoomForm({ initialData, onSuccess, onCancel }: Props) {
             } else {
                 alert(json.error || 'Upload failed');
             }
-        } catch (err) {
+        } catch {
             alert('Upload error');
         } finally {
             setUploading(false);
@@ -149,6 +149,7 @@ export default function RoomForm({ initialData, onSuccess, onCancel }: Props) {
                         <div className="flex flex-wrap gap-4 mb-2">
                             {imageUrls.map((url, i) => (
                                 <div key={i} className="relative w-24 h-24 border rounded overflow-hidden group">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={url} className="w-full h-full object-cover" alt="Room" />
                                     <button
                                         type="button"

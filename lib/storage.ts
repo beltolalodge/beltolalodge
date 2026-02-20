@@ -13,7 +13,7 @@ export const BUCKET_NAME = 'room-images';
 export async function uploadImage(file: Buffer, filename: string, mimeType: string) {
     if (!supabase) throw new Error('Supabase not configured');
 
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
         .from(BUCKET_NAME)
         .upload(filename, file, {
             contentType: mimeType,

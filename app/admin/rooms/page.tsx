@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from 'react';
-import RoomForm from '@/components/admin/RoomForm';
+import RoomForm, { Room } from '@/components/admin/RoomForm';
 
 export default function BookingPage() {
-    const [rooms, setRooms] = useState<any[]>([]);
+    const [rooms, setRooms] = useState<Room[]>([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [editingRoom, setEditingRoom] = useState<any>(null);
+    const [editingRoom, setEditingRoom] = useState<Room | undefined>(undefined);
 
     const fetchRooms = async () => {
         const res = await fetch('/api/admin/rooms');
@@ -27,7 +27,7 @@ export default function BookingPage() {
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold font-serif text-[#1B1B1B]">Manage Rooms</h1>
                 <button
-                    onClick={() => { setEditingRoom(null); setIsFormOpen(true); }}
+                    onClick={() => { setEditingRoom(undefined); setIsFormOpen(true); }}
                     className="bg-[#C8A45D] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#B08D45] transition-colors"
                 >
                     + Add New Room
@@ -58,7 +58,7 @@ export default function BookingPage() {
                                         Edit
                                     </button>
                                     <button
-                                        onClick={() => handleDelete(room.id)}
+                                        onClick={() => handleDelete(room.id!)}
                                         className="text-red-600 hover:underline text-sm"
                                     >
                                         Delete

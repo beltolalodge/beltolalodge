@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json(blocked);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Date likely already blocked' }, { status: 400 });
     }
 }

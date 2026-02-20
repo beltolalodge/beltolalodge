@@ -69,7 +69,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         });
 
         return NextResponse.json(room);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
     }
 }
@@ -93,7 +93,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
             return NextResponse.json({ message: 'Room deleted permanently' });
         }
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
     }
 }

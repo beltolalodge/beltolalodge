@@ -167,7 +167,7 @@ export default function FluidHero() {
         window.addEventListener("resize", resize);
         resize();
 
-        let startTime = performance.now();
+        const startTime = performance.now();
         let animationFrameId: number;
 
         const render = () => {

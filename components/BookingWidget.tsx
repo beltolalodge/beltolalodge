@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 
 interface BookingWidgetProps {
@@ -39,8 +40,8 @@ export default function BookingWidget({ room }: BookingWidgetProps) {
 
             // Redirect to WhatsApp
             window.open(data.url, '_blank');
-        } catch (error: any) {
-            alert(error.message);
+        } catch (error) {
+            alert(error instanceof Error ? error.message : 'Unknown error');
         } finally {
             setLoading(false);
         }

@@ -5,7 +5,7 @@ interface AuditLog {
     id: string;
     action: string;
     entity_type: string;
-    details?: any;
+    details?: Record<string, unknown>;
     timestamp: string;
     admin: { email: string };
 }
@@ -42,7 +42,7 @@ export default function AuditLogsPage() {
                                 <td className="p-4 text-sm font-medium">{log.admin.email}</td>
                                 <td className="p-4">
                                     <span className={`px-2 py-1 rounded text-xs font-bold ${log.action.includes('DELETE') || log.action.includes('BLOCK') ? 'bg-red-100 text-red-600' :
-                                            log.action.includes('CREATE') ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'
+                                        log.action.includes('CREATE') ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'
                                         }`}>
                                         {log.action}
                                     </span>

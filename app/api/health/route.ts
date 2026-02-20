@@ -6,7 +6,7 @@ export async function GET() {
         // Check DB connection
         await db.$queryRaw`SELECT 1`;
         return NextResponse.json({ status: 'ok', timestamp: new Date().toISOString() });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { status: 'error', message: 'Database unreachable' },
             { status: 503 }

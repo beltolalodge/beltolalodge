@@ -6,11 +6,7 @@ import Footer from '@/components/Footer';
 
 export const dynamic = 'force-dynamic';
 
-export default async function RoomsPage({
-    searchParams,
-}: {
-    searchParams: { checkIn?: string; checkOut?: string; guests?: string };
-}) {
+export default async function RoomsPage() {
     const rooms = await db.room.findMany({
         where: { is_active: true },
         include: { images: { orderBy: { display_order: 'asc' } } },

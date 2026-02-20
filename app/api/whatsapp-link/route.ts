@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json({ url });
-    } catch (error: any) {
+    } catch (error) {
         console.error('WhatsApp Gen Error:', error);
         return NextResponse.json(
-            { error: error.message || 'Internal Server Error' },
+            { error: error instanceof Error ? error.message : 'Internal Server Error' },
             { status: 500 }
         );
     }

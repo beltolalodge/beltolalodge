@@ -28,8 +28,8 @@ export default function AdminLogin() {
             }
 
             router.push('/admin/dashboard');
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Login failed');
         } finally {
             setLoading(false);
         }
