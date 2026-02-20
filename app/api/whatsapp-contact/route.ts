@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '919101311322';
+const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '919707751944';
 
 const contactSchema = z.object({
     name: z.string().min(2),

@@ -1,6 +1,6 @@
 import { db } from './db';
 
-const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '919101311322'; // Default placeholder
+const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '919707751944'; // Default placeholder
 
 interface WhatsAppLinkParams {
     roomId: string;
